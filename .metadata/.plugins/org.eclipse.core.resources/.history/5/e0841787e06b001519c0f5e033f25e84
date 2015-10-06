@@ -10,11 +10,14 @@
 		for(clases in mp!ClassUnit.all)
 		{
 			var tieneAnotaciones=false;
+			//clases.println();
 			for(elementos in clases.codeElement)
 			{
+				//elementos.println('.');
 				if (elementos.codeRelation.select(a|a.isTypeOf(mp!HasValue)).select(a|a.annotation.size()>0).size()>0)
 				{
 					var valor = elementos.codeRelation.select(a|a.isTypeOf(mp!HasValue)).select(a|a.annotation.size()>0);
+					//valor.println('..');
 					for(p in valor){
 						//p.to.println('...');
 					}
@@ -33,30 +36,35 @@
 		for(clases in mp!ClassUnit.all)
 		{
 	%]
-			<a name="[%=clases.name%]">
 			<h2>Clase: [%=clases.name%]</h2>
-			<ul>
 	[%
 			for(elementos in clases.codeElement)
 			{
+	%]
+				<h3>Anotaciones</h3>
+				<ul>
+				</ul>
+	[%
 				if (elementos.codeRelation.select(a|a.isTypeOf(mp!HasValue)).select(a|a.annotation.size()>0).size()>0)
 				{
 					var valor = elementos.codeRelation.select(a|a.isTypeOf(mp!HasValue)).select(a|a.annotation.size()>0);
+					//valor.println('..');
 					for(p in valor){
+						//p.to.name.println('...');
 	%]
-					<li>Anotacion: @[%=p.to.name%]</li>
+				<tr>
+					<td>[%=p.to.name%]</td>
+				</tr>
 	[%
 					}				
 					break;
 				}
 	%]
-					<li>Metodo: [%=elementos.name%]</li>
+				<tr>
+					<td>[%=elementos.name%]</td>
+				</tr>
 	[%
 			}
-	%]
-			</ul>
-	[%
-			
 		}
 	%]
 </body>

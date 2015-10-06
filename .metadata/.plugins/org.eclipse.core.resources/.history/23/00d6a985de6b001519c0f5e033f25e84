@@ -10,13 +10,16 @@
 		for(clases in mp!ClassUnit.all)
 		{
 			var tieneAnotaciones=false;
+			clases.println();
 			for(elementos in clases.codeElement)
 			{
+				elementos.println('.');
 				if (elementos.codeRelation.select(a|a.isTypeOf(mp!HasValue)).select(a|a.annotation.size()>0).size()>0)
 				{
 					var valor = elementos.codeRelation.select(a|a.isTypeOf(mp!HasValue)).select(a|a.annotation.size()>0);
+					valor.println('..');
 					for(p in valor){
-						//p.to.println('...');
+						p.to.name.println('...');
 					}
 					tieneAnotaciones=true;
 					break;
@@ -28,35 +31,6 @@
 				<a href="#[%=clases.name%]">[%=clases.name%]</a>-
 	[%
 			}
-		}
-		
-		for(clases in mp!ClassUnit.all)
-		{
-	%]
-			<a name="[%=clases.name%]">
-			<h2>Clase: [%=clases.name%]</h2>
-			<ul>
-	[%
-			for(elementos in clases.codeElement)
-			{
-				if (elementos.codeRelation.select(a|a.isTypeOf(mp!HasValue)).select(a|a.annotation.size()>0).size()>0)
-				{
-					var valor = elementos.codeRelation.select(a|a.isTypeOf(mp!HasValue)).select(a|a.annotation.size()>0);
-					for(p in valor){
-	%]
-					<li>Anotacion: @[%=p.to.name%]</li>
-	[%
-					}				
-					break;
-				}
-	%]
-					<li>Metodo: [%=elementos.name%]</li>
-	[%
-			}
-	%]
-			</ul>
-	[%
-			
 		}
 	%]
 </body>

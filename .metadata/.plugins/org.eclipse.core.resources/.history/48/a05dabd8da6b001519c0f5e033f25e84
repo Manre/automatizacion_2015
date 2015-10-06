@@ -9,15 +9,11 @@
 		
 		for(clases in mp!ClassUnit.all)
 		{
-			var tieneAnotaciones=false;
+			var tieneAnotaciones=false; 
 			for(elementos in clases.codeElement)
 			{
 				if (elementos.codeRelation.select(a|a.isTypeOf(mp!HasValue)).select(a|a.annotation.size()>0).size()>0)
 				{
-					var valor = elementos.codeRelation.select(a|a.isTypeOf(mp!HasValue)).select(a|a.annotation.size()>0);
-					for(p in valor){
-						//p.to.println('...');
-					}
 					tieneAnotaciones=true;
 					break;
 				}
@@ -32,31 +28,35 @@
 		
 		for(clases in mp!ClassUnit.all)
 		{
+			clases.println();
 	%]
-			<a name="[%=clases.name%]">
 			<h2>Clase: [%=clases.name%]</h2>
-			<ul>
+			<table style="width:100%">
+				<tr>
+					<td>Tipo</td>
+					<td>Nombre</td>
+				</tr>
 	[%
+			mp!HasValue.println();
+			
+			//for(modulo in clases.CodeRelationship)
+			//{
+				//modulo.println('.......');
+			//}
 			for(elementos in clases.codeElement)
-			{
-				if (elementos.codeRelation.select(a|a.isTypeOf(mp!HasValue)).select(a|a.annotation.size()>0).size()>0)
-				{
-					var valor = elementos.codeRelation.select(a|a.isTypeOf(mp!HasValue)).select(a|a.annotation.size()>0);
-					for(p in valor){
+			{	
+				elementos.println('...');
 	%]
-					<li>Anotacion: @[%=p.to.name%]</li>
-	[%
-					}				
-					break;
-				}
-	%]
-					<li>Metodo: [%=elementos.name%]</li>
+				<tr>
+					<td>Tipo</td>
+					<td>[%=elementos.name%]</td>
+				</tr>
+
 	[%
 			}
 	%]
-			</ul>
+			</table>
 	[%
-			
 		}
 	%]
 </body>
