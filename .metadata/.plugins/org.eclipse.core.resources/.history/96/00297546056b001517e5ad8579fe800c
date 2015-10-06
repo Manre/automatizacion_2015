@@ -1,0 +1,45 @@
+<head>
+</head>
+<body>
+	<div class="div">
+	<a name="top"></a>
+	
+	<h1 align="center">Market Place Javadoc</h1>
+	[%
+		
+		for(clases in mp!ClassUnit.all)
+		{
+			//clases.println();
+			var tieneAnotaciones=false; 
+			for(elementos in clases.codeElement)
+			{
+				
+				if (elementos.codeRelation.select(a|a.isTypeOf(mp!HasValue)).select(a|a.annotation.size()>0).size()>0)
+				{
+					tieneAnotaciones=true;
+					break;
+				}
+			}
+			if(clases.codeRelation.select(a|a.isTypeOf(mp!HasValue)).select(a|a.annotation.size()>0).size()>0 or tieneAnotaciones==true)
+			{
+	%]
+				<a href="#[%=clases.name%]">[%=clases.name%]</a>-
+	[%
+			}
+		}
+		
+		for(clases in mp!ClassUnit.all)
+		{
+	%]
+			<h2>[%=clases.name%]</h2>
+	[%
+			for(elementos in clases.codeElement)
+			{	
+				elementos.println('...');
+	%]
+				<h3>[%=elementos.name%]</h3>
+	[%
+			}
+		}
+	%]
+</body>

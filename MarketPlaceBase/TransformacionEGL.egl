@@ -1,0 +1,71 @@
+[%	
+var root : mp!CodeModel:= mp!CodeModel.all.at(0);
+%]
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>MarketPlace</title>
+<style type="text/css">
+
+.div{
+left:0%;
+top:0%;  
+position: absolute;
+height: 99%; 
+width: 99.7%
+}
+</style>
+</head>
+<body>
+<div class="div">
+<a  name="top"></a>
+<h1 align="center">Market Place Javadoc</h1>
+[%
+
+ for(clases in mp!ClassUnit.all)
+ {
+ var tieneAnotaciones=false; 
+ for(elementos in clases.codeElement)
+ {
+ if (elementos.codeRelation.select(a|a.isTypeOf(mp!HasValue)).select(a|a.annotation.size()>0).size()>0){
+ tieneAnotaciones=true;
+ break;
+ }
+ }
+ if(clases.codeRelation.select(a|a.isTypeOf(mp!HasValue)).select(a|a.annotation.size()>0).size()>0 or tieneAnotaciones==true){
+ %]
+ <a  href="#[%=clases.name%]">[%=clases.name%]</a>-
+ [%
+ }
+ }
+%]
+<br>
+<br>
+
+<a name="_ClientLogicService"></a>
+<h1>Clase: _ClientLogicService</h1>
+<table  border="1" style="width: 100%">
+<tr >
+<td colspan="2" bgcolor="#9FD2F0">
+<h1>Anotaciones</h1>
+</td>
+</tr>
+ 
+ <tr>
+<td style="width: 20%">
+@Inject
+</td>
+<td style="width: 80%">
+<label style="color: blue;">persistance</label></br>
+</td>
+</tr>
+ 
+</table>
+<a  href="#top">Top</a>
+
+</div>
+</body>
+</html>
