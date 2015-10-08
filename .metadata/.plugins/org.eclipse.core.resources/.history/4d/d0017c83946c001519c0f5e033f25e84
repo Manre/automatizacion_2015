@@ -1,0 +1,67 @@
+<head>
+</head>
+<body>
+	<div class="div">
+	<a name="top"></a>
+	
+	<h1 align="center">Market Place Javadoc</h1>
+	[%
+		var s_anotaciones : Sequence;
+		var s_metodos : Sequence;
+		
+		for(clases in mp!ClassUnit.all)
+		{
+			var tieneAnotaciones=false;
+			for(elementos in clases.codeElement)
+			{
+				if (elementos.codeRelation.select(a|a.isTypeOf(mp!HasValue)).select(a|a.annotation.size()>0).size()>0)
+				{
+					var valor = elementos.codeRelation.select(a|a.isTypeOf(mp!HasValue)).select(a|a.annotation.size()>0);
+					tieneAnotaciones=true;
+					break;
+				}
+			}
+			if(clases.codeRelation.select(a|a.isTypeOf(mp!HasValue)).select(a|a.annotation.size()>0).size()>0 or tieneAnotaciones==true)
+			{
+	%]
+				<a href="#[%=clases.name%]">[%=clases.name%]</a>-
+	[%
+			}
+		}
+		
+		for(clases in mp!ClassUnit.all)
+		{
+	%]
+			<a name="[%=clases.name%]">
+			<h2>Clase: [%=clases.name%]</h2>
+			<table border="1">
+	[%
+			for(elementos in clases.codeElement)
+			{
+	%]
+				<tr>				
+	[%
+				if (elementos.codeRelation.select(a|a.isTypeOf(mp!HasValue)).select(a|a.annotation.size()>0).size()>0)
+				{
+					var valor = elementos.codeRelation.select(a|a.isTypeOf(mp!HasValue)).select(a|a.annotation.size()>0);
+					for(p in valor){
+	%]
+					<td>@[%=p.to.name%]</td>
+	[%
+					}				
+	%]
+					<td>[%=elementos.name%]</td>				
+	[%
+					break;
+				}
+	%]
+				</tr>				
+	[%
+			}
+	%]
+			</table>
+	[%
+			
+		}
+	%]
+</body>

@@ -1,0 +1,89 @@
+<html>
+<head>
+	<meta charset="ISO-8859-1">
+	<title>MarketPlace</title>
+	<style type="text/css">
+	.div1{
+		position: absolute; 
+		height: 100%; 
+		width: 20%;
+		border-style: solid;
+		border-color: gray;
+		border-radius:5px;
+		overflow-y:scroll
+	}
+	.div2{
+		left:0%;
+		top:0%;  
+		position: absolute;
+		height: 99%; 
+		width: 99.7%
+	}
+	</style>
+	<script src="http://code.jquery.com/jquery-latest.min.js"
+	type="text/javascript"></script>
+	<script src="anotaciones.js"
+	type="text/javascript"></script>
+</head>
+<body>
+	<div class="div2">
+	<a name="top"></a>
+	
+	<h1 align="center">Market Place Javadoc</h1>
+	[%
+		var anotaciones : Sequence;
+		
+		for(clases in mp!ClassUnit.all)
+		{
+			var tieneAnotaciones=false;
+			for(elementos in clases.codeElement)
+			{
+				if (elementos.codeRelation.select(a|a.isTypeOf(mp!HasValue)).select(a|a.annotation.size()>0).size()>0)
+				{
+					var valor = elementos.codeRelation.select(a|a.isTypeOf(mp!HasValue)).select(a|a.annotation.size()>0);
+					tieneAnotaciones=true;
+					break;
+				}
+			}
+			if(clases.codeRelation.select(a|a.isTypeOf(mp!HasValue)).select(a|a.annotation.size()>0).size()>0 or tieneAnotaciones==true)
+			{
+	%]
+				<a href="#[%=clases.name%]">[%=clases.name%]</a>-
+	[%
+			}
+		}
+		
+		for(clases in mp!ClassUnit.all)
+		{
+			var tieneAnotaciones=false;
+			//anotaciones = null;
+			for(elementos in clases.codeElement)
+			{
+				//Encuentra anotaciones
+				if (elementos.codeRelation.select(a|a.isTypeOf(mp!HasValue)).select(a|a.annotation.size()>0).size()>0)
+				{
+					var valores = elementos.codeRelation.select(a|a.isTypeOf(mp!HasValue)).select(a|a.annotation.size()>0);
+					tieneAnotaciones=true;
+					anotaciones.addAll(valores);
+					break;
+				}
+			}
+
+			
+			//Encuentra clases
+			
+			if(clases.codeRelation.select(a|a.isTypeOf(mp!HasValue)).select(a|a.annotation.size()>0).size()>0 or tieneAnotaciones==true)
+			{
+	%]
+				<a name="[%=clases.name%]">
+				<h1>Clase: [%=clases.name%]</h1>
+	[%
+				//for(anotacion in s_anotaciones){
+					//"si".println('...');
+				//}
+			}
+		}
+	%]
+	</div>
+</body>
+</html>
